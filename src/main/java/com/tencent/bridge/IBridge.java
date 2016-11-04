@@ -7,6 +7,7 @@ package com.tencent.bridge;
  */
 public interface IBridge {
 
+
     /**
      * 获取子商户 ID
      * @return 子商户 ID
