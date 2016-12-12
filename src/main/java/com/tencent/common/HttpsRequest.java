@@ -22,7 +22,6 @@ import javax.net.ssl.SSLContext;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.SocketTimeoutException;
 import java.security.*;
 import java.security.cert.CertificateException;
@@ -122,7 +121,6 @@ public class HttpsRequest implements IServiceRequest{
 
         //解决XStream对出现双下划线的bug
         XStream xStreamForRequestPostData = new XStream(new DomDriver("UTF-8", new XmlFriendlyNameCoder("-_", "_")));
-
         //将要提交给API的数据对象转换成XML格式数据Post给API
         String postDataXML = xStreamForRequestPostData.toXML(xmlObj);
 

@@ -34,7 +34,7 @@ public class PrePayReqData {
     private String product_id = "";
     private String openid = "";
 
-    public PrePayReqData(String nonce_str, String sign, String body, String out_trade_no, int total_fee, String spbill_create_ip, String notify_url, String product_id, String openid) {
+    public PrePayReqData(String body, String out_trade_no, int total_fee, String spbill_create_ip, String notify_url, String product_id, String openid, String time_start) {
         this.appid = Configure.getAppid();
         this.mch_id = Configure.getMchid();
         this.nonce_str = RandomStringGenerator.getRandomStringByLength(32);
@@ -47,6 +47,7 @@ public class PrePayReqData {
         this.spbill_create_ip = spbill_create_ip;
         this.notify_url = notify_url;
         this.product_id = product_id;
+        this.time_start = time_start;
         this.openid = openid;
     }
 

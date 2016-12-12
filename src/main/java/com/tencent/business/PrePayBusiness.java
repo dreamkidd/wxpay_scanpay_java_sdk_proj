@@ -39,7 +39,7 @@ public class PrePayBusiness {
     //执行结果
     private static String result = "";
 
-    private static Log log = new Log(LoggerFactory.getLogger(DownloadBillBusiness.class));
+    private static Log log = new Log(LoggerFactory.getLogger(PrePayBusiness.class));
 
     private PrePayService prePayService;
 

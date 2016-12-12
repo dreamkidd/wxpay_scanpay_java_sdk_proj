@@ -3,6 +3,7 @@ package com.tencent;
 import com.tencent.business.*;
 import com.tencent.common.Configure;
 import com.tencent.protocol.downloadbill_protocol.DownloadBillReqData;
+import com.tencent.protocol.notify_protocol.NotifyReqData;
 import com.tencent.protocol.pay_protocol.ScanPayReqData;
 import com.tencent.protocol.pay_query_protocol.ScanPayQueryReqData;
 import com.tencent.protocol.pre_pay_protocol.PrePayReqData;
@@ -148,6 +149,10 @@ public class WXPay {
 
     public static void prePayBusiness(PrePayReqData prePayReqData, PrePayBusiness.ResultListener resultListener) throws Exception {
         new PrePayBusiness().run(prePayReqData, resultListener);
+    }
+
+    public static NotifyReqData handlerPayCallBack(String xmlString){
+        return null;
     }
 
 
