@@ -21,14 +21,10 @@ public class PrePayReqData {
     private String nonce_str = "";
     private String sign = "";
     private String body = "";
-    private String detail = "";
-    private String attach = "";
     private String out_trade_no = "";
     private int total_fee = 0;
     private String spbill_create_ip = "";
     private String time_start = "";
-    private String time_expire = "";
-    private String goods_tag = "";
     private String notify_url = "";
     private String trade_type = "";
     private String product_id = "";
@@ -39,16 +35,16 @@ public class PrePayReqData {
         this.mch_id = Configure.getMchid();
         this.nonce_str = RandomStringGenerator.getRandomStringByLength(32);
         this.device_info = "WEB";
-        this.sign = Signature.getSign(toMap());
         this.body = body;
         this.out_trade_no = out_trade_no;
         this.total_fee = total_fee;
-        this.trade_type = "trade_type";
+        this.trade_type = "JSAPI";
         this.spbill_create_ip = spbill_create_ip;
         this.notify_url = notify_url;
         this.product_id = product_id;
         this.time_start = time_start;
         this.openid = openid;
+        this.sign = Signature.getSign(toMap());
     }
 
     public String getAppid() {
@@ -99,22 +95,6 @@ public class PrePayReqData {
         this.body = body;
     }
 
-    public String getDetail() {
-        return detail;
-    }
-
-    public void setDetail(String detail) {
-        this.detail = detail;
-    }
-
-    public String getAttach() {
-        return attach;
-    }
-
-    public void setAttach(String attach) {
-        this.attach = attach;
-    }
-
     public String getOut_trade_no() {
         return out_trade_no;
     }
@@ -145,22 +125,6 @@ public class PrePayReqData {
 
     public void setTime_start(String time_start) {
         this.time_start = time_start;
-    }
-
-    public String getTime_expire() {
-        return time_expire;
-    }
-
-    public void setTime_expire(String time_expire) {
-        this.time_expire = time_expire;
-    }
-
-    public String getGoods_tag() {
-        return goods_tag;
-    }
-
-    public void setGoods_tag(String goods_tag) {
-        this.goods_tag = goods_tag;
     }
 
     public String getNotify_url() {

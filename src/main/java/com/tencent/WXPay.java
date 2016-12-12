@@ -2,8 +2,9 @@ package com.tencent;
 
 import com.tencent.business.*;
 import com.tencent.common.Configure;
+import com.tencent.common.Util;
 import com.tencent.protocol.downloadbill_protocol.DownloadBillReqData;
-import com.tencent.protocol.notify_protocol.NotifyReqData;
+import com.tencent.protocol.notify_protocol.NotifyResData;
 import com.tencent.protocol.pay_protocol.ScanPayReqData;
 import com.tencent.protocol.pay_query_protocol.ScanPayQueryReqData;
 import com.tencent.protocol.pre_pay_protocol.PrePayReqData;
@@ -11,6 +12,10 @@ import com.tencent.protocol.refund_protocol.RefundReqData;
 import com.tencent.protocol.refund_query_protocol.RefundQueryReqData;
 import com.tencent.protocol.reverse_protocol.ReverseReqData;
 import com.tencent.service.*;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 
 /**
  * SDK总入口
@@ -151,8 +156,8 @@ public class WXPay {
         new PrePayBusiness().run(prePayReqData, resultListener);
     }
 
-    public static NotifyReqData handlerPayCallBack(String xmlString){
-        return null;
+    public static NotifyResData handlerPayCallBack(String xmlString) throws IOException, SAXException, ParserConfigurationException {
+        return (NotifyResData) Util.getObjectFromXML(xmlString, NotifyResData.class);
     }
 
 
