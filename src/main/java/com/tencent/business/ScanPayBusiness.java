@@ -68,7 +68,7 @@ public class ScanPayBusiness {
     private int waitingTimeBeforePayQueryServiceInvoked = 5000;
 
     //循环调用订单查询API的次数
-    private int payQueryLoopInvokedCount = 3;
+    private int payQueryLoopInvokedCount = 5;
 
     //每次调用撤销API的等待时间
     private int waitingTimeBeforeReverseServiceInvoked = 5000;

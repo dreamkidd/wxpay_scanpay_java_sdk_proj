@@ -1,9 +1,7 @@
 package com.tencent;
 
-import com.tencent.common.Signature;
 import com.tencent.common.Util;
-
-import java.util.Date;
+import com.tencent.protocol.notify_protocol.NotifyReqData;
 
 public class Main {
 
@@ -57,6 +55,9 @@ public class Main {
 
             //Util.log(new Date().getTime());
             //Util.log(System.currentTimeMillis());
+            NotifyReqData notifyReqData = new NotifyReqData(true,"OK");
+            System.out.println(notifyReqData);
+
 
         } catch (Exception e){
             Util.log(e.getMessage());

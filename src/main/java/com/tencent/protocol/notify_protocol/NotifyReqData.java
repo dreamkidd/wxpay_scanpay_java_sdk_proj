@@ -1,5 +1,7 @@
 package com.tencent.protocol.notify_protocol;
 
+import com.tencent.common.report.XStreamCDATA;
+
 /**
  * description
  *
@@ -7,7 +9,10 @@ package com.tencent.protocol.notify_protocol;
  * @since 2016/11/4
  */
 public class NotifyReqData {
+
+    @XStreamCDATA
     public String return_code;
+    @XStreamCDATA
     public String return_msg;
 
     public String getReturn_code() {
@@ -34,5 +39,15 @@ public class NotifyReqData {
             this.return_code = "FAIL";
             this.return_msg = return_msg;
         }
+    }
+
+    @Override
+    public String toString() {
+        String name = this.getClass().getName();
+        final StringBuilder sb = new StringBuilder("<").append(name).append(">");
+        sb.append("<return_code>").append("<![CDATA[").append(return_code).append("]]</return_code>");
+        sb.append("<return_msg>").append("<![CDATA[").append(return_msg).append("]]</return_msg>");
+        sb.append("</").append(name).append(">");
+        return sb.toString();
     }
 }
