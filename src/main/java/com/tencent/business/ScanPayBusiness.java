@@ -431,6 +431,7 @@ public class ScanPayBusiness {
         payResData.setFee_type(queryResData.getFee_type());
         payResData.setIs_subscribe(queryResData.getIs_subscribe());
         payResData.setMch_id(queryResData.getMch_id());
+        payResData.setSub_mch_id(queryResData.getSub_mch_id());
         payResData.setNonce_str(queryResData.getNonce_str());
         payResData.setOpenid(queryResData.getOpenid());
         payResData.setOut_trade_no(queryResData.getOut_trade_no());
