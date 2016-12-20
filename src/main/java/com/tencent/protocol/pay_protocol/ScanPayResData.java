@@ -17,7 +17,6 @@ public class ScanPayResData {
     //协议返回的具体数据（以下字段在return_code 为SUCCESS 的时候有返回）
     private String appid = "";
     private String mch_id = "";
-    private String sub_mch_id="";
     private String nonce_str = "";
     private String sign = "";
     private String result_code = "";
@@ -210,20 +209,11 @@ public class ScanPayResData {
         this.time_end = time_end;
     }
 
-//    public String getDocs() {
+    //    public String getDocs() {
 //        return docs;
 //    }
 //
 //    public void setDocs(String docs) {
 //        this.docs = docs;
 //    }
-
-
-    public String getSub_mch_id() {
-        return sub_mch_id;
-    }
-
-    public void setSub_mch_id(String sub_mch_id) {
-        this.sub_mch_id = sub_mch_id;
-    }
 }

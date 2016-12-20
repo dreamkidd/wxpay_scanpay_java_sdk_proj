@@ -190,7 +190,7 @@ public class ScanPayBusiness {
                     //--------------------------------------------------------------------
 
                     //对于扣款明确失败的情况直接走撤销逻辑
-                    doReverseLoop(subMchId,outTradeNo);
+                    doReverseLoop(subMchId, outTradeNo);
 
                     //以下几种情况建议明确提示用户，指导接下来的工作
                     if (errorCode.equals("AUTHCODEEXPIRE")) {
@@ -213,7 +213,7 @@ public class ScanPayBusiness {
                     //--------------------------------------------------------------------
 
                     //表示有可能单次消费超过300元，或是免输密码消费次数已经超过当天的最大限制，这个时候提示用户输入密码，商户自己隔一段时间去查单，查询一定次数，看用户是否已经输入了密码
-                    if (doPayQueryLoop(payQueryLoopInvokedCount, outTradeNo, scanPayResData)) {
+                    if (doPayQueryLoop(payQueryLoopInvokedCount, outTradeNo, scanPayResData, scanPayReqData)) {
                         log.i("【需要用户输入密码、查询到支付成功】");
                         resultListener.onSuccess(scanPayResData);
                     } else {
@@ -227,12 +227,12 @@ public class ScanPayBusiness {
                     //4)扣款未知失败
                     //--------------------------------------------------------------------
 
-                    if (doPayQueryLoop(payQueryLoopInvokedCount, outTradeNo, scanPayResData)) {
+                    if (doPayQueryLoop(payQueryLoopInvokedCount, outTradeNo, scanPayResData, scanPayReqData)) {
                         log.i("【支付扣款未知失败、查询到支付成功】");
                         resultListener.onSuccess(scanPayResData);
                     } else {
                         log.i("【支付扣款未知失败、在一定时间内没有查询到支付成功、走撤销流程】");
-                        doReverseLoop(subMchId,outTradeNo);
+                        doReverseLoop(subMchId, outTradeNo);
                         resultListener.onFail(scanPayResData);
                     }
                 }
@@ -247,13 +247,13 @@ public class ScanPayBusiness {
      * @return 该订单是否支付成功
      * @throws Exception
      */
-    private boolean doOnePayQuery(ScanPayResData scanPayResData, String outTradeNo) throws Exception {
+    private boolean doOnePayQuery(ScanPayResData scanPayResData, String outTradeNo, String subMchId) throws Exception {
 
         sleep(waitingTimeBeforePayQueryServiceInvoked);//等待一定时间再进行查询，避免状态还没来得及被更新
 
         String payQueryServiceResponseString;
 
-        ScanPayQueryReqData scanPayQueryReqData = new ScanPayQueryReqData("", outTradeNo);
+        ScanPayQueryReqData scanPayQueryReqData = new ScanPayQueryReqData("", outTradeNo, subMchId);
         payQueryServiceResponseString = scanPayQueryService.request(scanPayQueryReqData);
 
         log.i("支付订单查询API返回的数据如下：");
@@ -297,14 +297,14 @@ public class ScanPayBusiness {
      * @return 该订单是否支付成功
      * @throws InterruptedException
      */
-    private boolean doPayQueryLoop(int loopCount, String outTradeNo, ScanPayResData scanPayResData) throws Exception {
+    private boolean doPayQueryLoop(int loopCount, String outTradeNo, ScanPayResData scanPayResData, ScanPayReqData reqData) throws Exception {
         //至少查询一次
         if (loopCount == 0) {
             loopCount = 1;
         }
         //进行循环查询
         for (int i = 0; i < loopCount; i++) {
-            if (doOnePayQuery(scanPayResData, outTradeNo)) {
+            if (doOnePayQuery(scanPayResData, outTradeNo, reqData.getSub_mch_id())) {
                 return true;
             }
         }
@@ -431,7 +431,7 @@ public class ScanPayBusiness {
         payResData.setFee_type(queryResData.getFee_type());
         payResData.setIs_subscribe(queryResData.getIs_subscribe());
         payResData.setMch_id(queryResData.getMch_id());
-        payResData.setSub_mch_id(queryResData.getSub_mch_id());
+//        payResData.set(queryResData.getSub_mch_id());
         payResData.setNonce_str(queryResData.getNonce_str());
         payResData.setOpenid(queryResData.getOpenid());
         payResData.setOut_trade_no(queryResData.getOut_trade_no());

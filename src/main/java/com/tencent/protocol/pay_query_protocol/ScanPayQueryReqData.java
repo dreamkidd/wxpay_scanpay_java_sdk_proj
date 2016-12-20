@@ -9,15 +9,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * User: rizenguo
- * Date: 2014/10/25
- * Time: 13:54
+ * User: rizenguo Date: 2014/10/25 Time: 13:54
  */
 public class ScanPayQueryReqData {
 
     //每个字段具体的意思请查看API文档
     private String appid = "";
     private String mch_id = "";
+    private String sub_mch_id = "";
     private String transaction_id = "";
     private String out_trade_no = "";
     private String nonce_str = "";
@@ -25,12 +24,13 @@ public class ScanPayQueryReqData {
 
     /**
      * 请求支付查询服务
+     *
      * @param transactionID 是微信系统为每一笔支付交易分配的订单号，通过这个订单号可以标识这笔交易，它由支付订单API支付成功时返回的数据里面获取到。建议优先使用
-     * @param outTradeNo 商户系统内部的订单号,transaction_id 、out_trade_no 二选一，如果同时存在优先级：transaction_id>out_trade_no
+     * @param outTradeNo    商户系统内部的订单号,transaction_id 、out_trade_no 二选一，如果同时存在优先级：transaction_id>out_trade_no
      * @return API返回的XML数据
      * @throws Exception
      */
-    public ScanPayQueryReqData(String transactionID, String outTradeNo){
+    public ScanPayQueryReqData(String transactionID, String outTradeNo,String subMchId) {
 
         //--------------------------------------------------------------------
         //以下是测试数据，请商户按照自己的实际情况填写具体的值进去
@@ -41,6 +41,8 @@ public class ScanPayQueryReqData {
 
         //微信支付分配的商户号ID（开通公众号的微信支付功能之后可以获取到）
         setMch_id(Configure.getMchid());
+
+        setSub_mch_id(subMchId);
 
         //transaction_id是微信系统为每一笔支付交易分配的订单号，通过这个订单号可以标识这笔交易，它由支付订单API支付成功时返回的数据里面获取到。
         setTransaction_id(transactionID);
@@ -106,14 +108,22 @@ public class ScanPayQueryReqData {
         this.sign = sign;
     }
 
-    public Map<String,Object> toMap(){
-        Map<String,Object> map = new HashMap<String, Object>();
+    public String getSub_mch_id() {
+        return sub_mch_id;
+    }
+
+    public void setSub_mch_id(String sub_mch_id) {
+        this.sub_mch_id = sub_mch_id;
+    }
+
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<String, Object>();
         Field[] fields = this.getClass().getDeclaredFields();
         for (Field field : fields) {
             Object obj;
             try {
                 obj = field.get(this);
-                if(obj!=null){
+                if (obj != null) {
                     map.put(field.getName(), obj);
                 }
             } catch (IllegalArgumentException e) {
